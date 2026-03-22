@@ -41,11 +41,13 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile
+      args:
+        - REACT_APP_API_URL=http://server:5000
     container_name: dairy_client
     ports:
       - "3000:3000"
     environment:
-      - REACT_APP_API_URL=http://localhost:5000
+      - REACT_APP_API_URL=http://server:5000
     depends_on:
       - server
     volumes:
