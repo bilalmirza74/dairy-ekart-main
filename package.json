@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bilalmirza74/dairy-ekart.git"
+    "url": "git+https://github.com/bilalmirza74/dairy-ekart-main.git"
   },
   "keywords": [
     "react",
@@ -32,9 +32,9 @@
   "author": "Your Name <your.email@example.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bilalmirza74/dairy-ekart/issues"
+    "url": "https://github.com/bilalmirza74/dairy-ekart-main/issues"
   },
-  "homepage": "https://github.com/bilalmirza74/dairy-ekart#readme",
+  "homepage": "https://github.com/bilalmirza74/dairy-ekart-main#readme",
   "devDependencies": {
     "concurrently": "^7.6.0"
   },

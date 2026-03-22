@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  # MongoDB Service
+  mongodb:
+    image: mongo:7
+    container_name: dairy_mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - dairy-network
+
+  # Node.js Server Service
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: dairy_server
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+      - MONGO_URI=mongodb://admin:password@mongodb:27017/dairy-ekart?authSource=admin
+      - PORT=5000
+    depends_on:
+      - mongodb
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    networks:
+      - dairy-network
+    restart: unless-stopped
+
+  # React Client Service
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: dairy_client
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:5000
+    depends_on:
+      - server
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    networks:
+      - dairy-network
+    restart: unless-stopped
+
+volumes:
+  mongodb_data:
+
+networks:
+  dairy-network:
+    driver: bridge
